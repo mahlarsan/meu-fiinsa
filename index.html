@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meu FIINSA 2026</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A6B3A">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Meu FIINSA">
+</head>
+<body>
+<style>
+@font-face{font-family:"Atkinson Hyperlegible";font-weight:400;font-display:swap;src:url(fonts/atkinson-hyperlegible-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-weight:700;font-display:swap;src:url(fonts/atkinson-hyperlegible-latin-700-normal.woff2) format("woff2")}
+:root{padding-top:env(safe-area-inset-top,0px)}
+body{margin:0}
+/* Layout: one column for the phone, big type, color = type of contact, fixed bottom tabs for the thumb */
+:root{
+  --bg:#F4F7F5; --card:#FFFFFF; --fg:#111714; --muted:#45524B; --line:#CBD5CF;
+  --cap:#0A6B3A; --cap-soft:#DDF2E6;
+  --par:#1D4DB5; --par-soft:#E0E9FB;
+  --gov:#76288A; --gov-soft:#F1E2F5;
+  --esc:#A84A06; --esc-soft:#FBE8D8;
+  --hot:#C0122A; --hot-soft:#FCE1E4;
+  --nav:#111714; --nav-fg:#FFFFFF;
+  --font:"Atkinson Hyperlegible", "Verdana", "Segoe UI", system-ui, sans-serif;
+  --base:19px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E1311; --card:#19201C; --fg:#F1F5F2; --muted:#B4C2BA; --line:#34413A;
+  --cap:#63D69C; --cap-soft:#163527; --par:#93B4FF; --par-soft:#1A2643;
+  --gov:#DDA2EA; --gov-soft:#33203A; --esc:#FFB26B; --esc-soft:#3A2614;
+  --hot:#FF7C88; --hot-soft:#3D1A1F; --nav:#F1F5F2; --nav-fg:#0E1311; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1311; --card:#19201C; --fg:#F1F5F2; --muted:#B4C2BA; --line:#34413A;
+  --cap:#63D69C; --cap-soft:#163527; --par:#93B4FF; --par-soft:#1A2643;
+  --gov:#DDA2EA; --gov-soft:#33203A; --esc:#FFB26B; --esc-soft:#3A2614;
+  --hot:#FF7C88; --hot-soft:#3D1A1F; --nav:#F1F5F2; --nav-fg:#0E1311; color-scheme:dark}
+:root[data-size="2"]{--base:22px}
+:root[data-size="3"]{--base:26px}
+html{font-size:var(--base)}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:1rem;line-height:1.45;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:0 calc(5.2rem + env(safe-area-inset-bottom, 0px))}
+*{box-sizing:border-box}
+main{max-width:46rem;margin:0 auto}
+h1,h2,h3{text-wrap:balance;margin:0;line-height:1.2}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--par);outline-offset:2px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding-block:1rem .5rem}
+.top h1{font-size:1.35rem}
+.top small{display:block;color:var(--muted);font-size:.8rem;font-weight:400}
+.size{border:2px solid var(--fg);background:var(--card);border-radius:.6rem;padding:.35rem .7rem;font-weight:700;cursor:pointer;flex:none}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem;margin-block:.25rem 1rem}
+.chip{display:inline-flex;align-items:center;gap:.3rem;border-radius:999px;padding:.12rem .6rem;font-size:.78rem;font-weight:700;letter-spacing:.02em;border:2px solid currentColor;white-space:nowrap}
+.c-cap{color:var(--cap);background:var(--cap-soft)}
+.c-par{color:var(--par);background:var(--par-soft)}
+.c-gov{color:var(--gov);background:var(--gov-soft)}
+.c-esc{color:var(--esc);background:var(--esc-soft)}
+.c-hot{color:var(--hot);background:var(--hot-soft)}
+.view{display:flex;flex-direction:column;gap:1rem}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.card{background:var(--card);border:2px solid var(--line);border-radius:1rem;padding:1rem;display:flex;flex-direction:column;gap:.6rem;min-width:0}
+.card.hot{border-color:var(--hot);border-width:3px}
+.time{font-variant-numeric:tabular-nums;font-weight:700;font-size:1.25rem}
+.room{font-weight:700;font-size:1.05rem}
+.sess{font-size:1.1rem;font-weight:700}
+.why{margin:0;color:var(--muted)}
+.ppl{display:flex;flex-wrap:wrap;gap:.45rem}
+.pbtn{border:2px solid currentColor;border-radius:.6rem;padding:.3rem .65rem;font-weight:700;cursor:pointer;font-size:.9rem;text-align:left}
+.alt{border-top:2px dashed var(--line);padding-top:.6rem;display:flex;flex-direction:column;gap:.4rem}
+.alt .lbl{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.alt .sess{font-size:1rem}
+.pause{background:transparent;border-style:dashed}
+.pause .sess{font-weight:400}
+.now-label{display:inline-block;background:var(--fg);color:var(--bg);border-radius:.4rem;padding:.1rem .5rem;font-weight:700;font-size:.85rem}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.daybtn,.fbtn{border:2px solid var(--fg);background:var(--card);border-radius:.7rem;padding:.55rem;font-weight:700;cursor:pointer}
+.daybtn[aria-pressed="true"],.fbtn[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.filters{display:flex;flex-wrap:wrap;gap:.4rem}
+.fbtn{padding:.35rem .7rem;font-size:.88rem}
+.search{width:100%;border:3px solid var(--fg);border-radius:.8rem;padding:.7rem .9rem;background:var(--card);font-size:1.1rem}
+.person{border-left:10px solid var(--k)}
+.person.flash{box-shadow:0 0 0 4px var(--k)}
+.ph{display:flex;gap:.75rem;align-items:center}
+.avatar{flex:none;width:3.2rem;height:3.2rem;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:1.15rem;background:var(--ks);color:var(--k);border:3px solid var(--k)}
+.ph h3{font-size:1.3rem}
+.org{margin:0;color:var(--muted);font-size:.95rem}
+.k-cap{--k:var(--cap);--ks:var(--cap-soft)} .k-par{--k:var(--par);--ks:var(--par-soft)}
+.k-gov{--k:var(--gov);--ks:var(--gov-soft)} .k-esc{--k:var(--esc);--ks:var(--esc-soft)}
+.field{margin:0}
+.field b{display:block;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pitch{background:var(--ks);border-radius:.7rem;padding:.6rem .75rem;margin:0;font-size:1.05rem}
+.where{margin:0;padding-left:1.1rem}
+.met{display:flex;align-items:center;gap:.5rem;font-weight:700;cursor:pointer}
+.met input{width:1.4rem;height:1.4rem;accent-color:var(--k)}
+textarea{width:100%;min-height:3.2rem;border:2px solid var(--line);border-radius:.6rem;padding:.5rem;background:var(--bg);resize:vertical}
+.metbadge{font-size:.8rem;font-weight:700;color:var(--cap)}
+.big{font-size:1.35rem;line-height:1.5;margin:0}
+.empty{color:var(--muted);text-align:center;padding:1rem}
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--nav);display:grid;grid-template-columns:repeat(4,1fr);
+  padding:.35rem max(8px, env(safe-area-inset-right, 0px)) calc(.35rem + env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px))}
+nav.tabs a{color:var(--nav-fg);text-decoration:none;text-align:center;font-weight:700;padding:.65rem .2rem;border-radius:.6rem;font-size:.95rem}
+nav.tabs a[aria-current="page"]{background:var(--nav-fg);color:var(--nav)}
+@media (prefers-reduced-motion:no-preference){.person.flash{transition:box-shadow .3s}}
+</style>
+
+<main>
+  <div class="top">
+    <h1>Meu FIINSA<small>4 e 5 de novembro · Manaus Plaza</small></h1>
+    <button class="size" id="sizeBtn" type="button" aria-label="Aumentar letra">A+</button>
+  </div>
+  <div class="legend" aria-label="Legenda de cores">
+    <span class="chip c-cap">Capital</span>
+    <span class="chip c-par">Parceria / cliente</span>
+    <span class="chip c-gov">Governo</span>
+    <span class="chip c-esc">Escuta</span>
+    <span class="chip c-hot">Imperdível</span>
+  </div>
+
+  <section class="view" id="v-agora"></section>
+  <section class="view" id="v-agenda" hidden></section>
+  <section class="view" id="v-pessoas" hidden></section>
+  <section class="view" id="v-pitch" hidden></section>
+</main>
+
+<nav class="tabs" aria-label="Seções">
+  <a href="#agora" data-tab="agora">Agora</a>
+  <a href="#agenda" data-tab="agenda">Agenda</a>
+  <a href="#pessoas" data-tab="pessoas">Pessoas</a>
+  <a href="#pitch" data-tab="pitch">Pitch</a>
+</nav>
+
+<script>
+const CAT={cap:"Capital",par:"Parceria / cliente",gov:"Governo",esc:"Escuta"};
+const P=[
+{id:"anne",n:"Anne Rammi",o:"Be The Earth Foundation · CEO",c:"cap",p:1,f:"Filantropia, negócios regenerativos e investimento ético. Economias do cuidado; ecofeminista.",t:"Combinar um café para apresentar a Tewá e a Yami com calma. Ângulo: cuidado e gênero, e como as organizações de base podem medir o que fazem.",w:["Qua 11h30 · Sala Rebojo (palestrante)"]},
+{id:"ellen",n:"Ellen Acioli",o:"BID · Especialista Amazônia",c:"cap",p:1,f:"Bioeconomia e fortalecimento de territórios e comunidades. Articula governo, empresas e povos tradicionais.",t:"O BID financia muitos projetos territoriais. A Yami pode padronizar a mensuração de impacto dos executores, inclusive dos pequenos. Que caminho existe via BID Lab?",w:["Qua 11h30 · Sala Igapó (moderadora)","Qua 14h15 · Palco Olho d’Água (moderadora)","Qui 9h30 · Conversas que movem"]},
+{id:"melissa",n:"Melissa Sendic",o:"CLUA · Program Officer",c:"cap",p:1,f:"Economias da floresta e inovação. Antes montava portfólios de impacto no Laboratório de Inovação do BID.",t:"Como a CLUA mede hoje o resultado do que financia nas economias da floresta? A Yami foi feita para essa lacuna.",w:["Qui 9h30 · Conversas que movem"]},
+{id:"werner",n:"Werner Kornexl",o:"Banco Mundial · Coord. Meio Ambiente",c:"cap",p:1,f:"Finanças verdes e mecanismos inovadores: TFFF, títulos de impacto, carbono.",t:"Pagamento por resultado depende de mensuração confiável e barata na ponta. É isso que a Yami resolve.",w:["Qui 9h30 · Conversas que movem"]},
+{id:"marcia",n:"Márcia Soares",o:"Fundo Vale · Gerente Amazônia e Parcerias",c:"cap",p:1,f:"Responsável pelo portfólio Amazônia do Fundo Vale. Conselho estratégico da Latimpacto.",t:"Como vocês acompanham o impacto dos negócios apoiados? A Yami pode ser essa camada para os negócios menores.",w:["Qua 16h30 · Sala Rebojo","Qui 9h30 · Conversas que movem","Qui 14h · Sala Terra Firme"]},
+{id:"jvilhena",n:"Juliana Vilhena",o:"Fundo Vale · Estratégia, Gestão e Impacto",c:"cap",p:1,f:"Lidera a mensuração de impacto e os programas de inovação do Fundo Vale. Restauração produtiva.",t:"Você lidera mensuração de impacto no Fundo Vale. Quero te mostrar como a Yami faz isso para quem não tem equipe técnica.",w:["Qui 16h · Sala Rebojo"]},
+{id:"janeth",n:"Janeth Londoño",o:"Latimpacto · Fundo Verde Catalítico",c:"cap",p:1,f:"Fundo regional de USD 5 mi com BID Lab e Fundo Verde para o Clima. Empreendedorismo climático na América Latina.",t:"(em espanhol) La Yami mide impacto con IA, a bajo costo, para organizaciones de base en América Latina.",w:["Qui 11h · Sala Igapó"]},
+{id:"denis",n:"Denis Minev",o:"Bemol · Diretor-presidente",c:"cap",p:2,f:"Investe em fundos e startups amazônicas. Força-tarefa Amazônia no BID Invest. Cofundador da FAS e do MUSA.",t:"Tecnologia feita para medir o impacto da nova economia amazônica, com foco em produtividade e escala.",w:["Qua 11h30 · Sala Igapó","Qui 9h30 · Conversas que movem"]},
+{id:"ilana",n:"Ilana Minev",o:"Bemol · Presidente do Conselho",c:"cap",p:2,f:"Investidora anjo em startups e aceleradoras na Amazônia. Conselhos da FBN e da FAS.",t:"Capital familiar que pensa em legado precisa ver impacto ao longo do tempo. A Yami mostra isso.",w:["Qua 11h30 · Sala Rebojo"]},
+{id:"bianca",n:"Bianca Quartiero",o:"Camil / Instituto Benera",c:"cap",p:2,f:"Cultura de doação. Terceira geração da família Camil. Comitê NextGen da FBN Brasil.",t:"A nova geração de famílias doadoras quer saber o que muda com a doação. A Yami ajuda as organizações a mostrar isso.",w:["Qua 11h30 · Sala Rebojo (moderadora)"]},
+{id:"thais",n:"Thais Megid",o:"Vox Capital · Soluções baseadas na Natureza",c:"cap",p:2,f:"Agricultura regenerativa, carbono, gestão de fundos e grants.",t:"O que vocês precisam ver de impacto para investir? A Yami gera esse dado no próprio negócio.",w:["Qui 14h · Sala Igarapé"]},
+{id:"nakahara",n:"Denis Nakahara",o:"Mov Investimentos · Sócio",c:"cap",p:2,f:"Fundos de soluções baseadas na natureza e bioeconomia. Venture capital de impacto.",t:"Como a Mov acompanha o impacto do portfólio depois do aporte?",w:["Qua 16h30 · Sala Terra Firme","Qui 14h · Sala Igarapé"]},
+{id:"folgado",n:"Lucas Folgado",o:"Fundo Vale · Analista",c:"cap",p:2,f:"Fortalecimento de negócios de impacto, programas e inovação aberta.",t:"Os negócios que vocês apoiam conseguem mostrar impacto sozinhos?",w:["Qua 14h15 · Sala Rebojo (moderador)","Qui 16h · Sala Rebojo (moderador)"]},
+{id:"raquel",n:"Raquel Rodrigues",o:"Meraki Impact · Operações",c:"cap",p:3,f:"Estratégia, capital e governança para famílias e organizações. Ex-Natura &Co.",t:"Como as famílias que vocês apoiam avaliam o impacto de longo prazo?",w:["Qua 11h30 · Sala Rebojo"]},
+{id:"cwerner",n:"Marcelo Cwerner",o:"Amazon Investor Coalition",c:"cap",p:3,f:"Conecta capital global à conservação e ao impacto local.",t:"Investidores da coalizão precisam de dado de impacto comparável. A Yami entrega isso.",w:["Qui 14h · Sala Igarapé (moderador)"]},
+{id:"pugas",n:"José Pugas",o:"Finance in Motion · Diretor Brasil",c:"cap",p:3,f:"Blended finance, descarbonização, finanças regenerativas.",t:"Blended finance exige métrica de impacto. A Yami barateia isso.",w:["Qua 16h30 · Centro Comunitário (moderador)","Qua 17h45 · Plenária Bodó na sala"]},
+{id:"abfig",n:"Ana Beatriz Figueiredo",o:"Factual Lab · Fundadora",c:"par",p:1,f:"Dados, monitoramento e avaliação de impacto na Amazônia.",t:"Fazemos coisas parecidas. Vamos entender onde a gente se complementa?",w:["Qua 16h30 · Sala Igapó"]},
+{id:"luciana",n:"Luciana Minev",o:"Singulari Consultoria · CEO",c:"par",p:1,f:"Estratégia, cultura e inteligência artificial. Atende Banco Mundial e BID. Investe e mentora negócios amazônicos.",t:"Somos duas consultorias amazônicas trabalhando com IA. Vamos trocar sobre IA aplicada a impacto?",w:["Qui 9h30 · Conversas que movem"]},
+{id:"gsouza",n:"Gabriela Souza",o:"AMAZ / Idesam · Novos Negócios",c:"par",p:2,f:"Opera a AMAZ Aceleradora (fundo blended). Experiência em monitoramento e avaliação de impacto.",t:"A AMAZ toparia pilotar a Yami com parte do portfólio?",w:["Qua 16h30 · Sala Rebojo"]},
+{id:"andrea",n:"Andrea Bezerra",o:"AMAZ / Idesam · Analista de Impacto",c:"par",p:2,f:"Avalia e acompanha negócios de impacto na aceleradora AMAZ.",t:"Como vocês medem o impacto do portfólio hoje? O que mais dá trabalho?",w:["Qua 16h30 · Sala Igapó"]},
+{id:"sobreira",n:"Márcia Sobreira",o:"NESsT Brasil · Gerente de Portfólio",c:"par",p:2,f:"Avaliação de impacto e MEAL com o portfólio Amazônia.",t:"Como vocês coletam dado de impacto com negócios sem equipe técnica?",w:["Qua 16h30 · Sala Igapó"]},
+{id:"joana",n:"Joana Oliveira",o:"WRI Brasil / Rede Pan-Amazônica",c:"par",p:2,f:"Gerente de Pan-Amazônia e Bioeconomia. Secretária executiva da Rede Pan-Amazônica.",t:"A ferramenta de maturidade da Rede e a Yami podem se complementar.",w:["Qui 9h30 · Conversas que movem","Qui 14h · Sala Rebojo"]},
+{id:"anacarol",n:"Ana Carolina Vieira",o:"Amazon Investor Coalition · Sociobioeconomia",c:"par",p:2,f:"Sociobioeconomia pan-amazônica. Equidade de gênero na conservação.",t:"Gênero e conservação na mesma régua: a Yami tem temática de gênero.",w:["Qua 16h30 · Sala Igarapé"]},
+{id:"motta",n:"Laura Motta",o:"Mercado Livre · Sustentabilidade",c:"par",p:2,f:"Criou o programa Biomas a um Clique, de acesso a mercado para a sociobioeconomia.",t:"Como vocês mostram o impacto dos vendedores do Biomas a um Clique? A Yami gera esse dado.",w:["Qui 9h30 · Conversas que movem"]},
+{id:"brasi",n:"Luiz Brasi Filho",o:"Origens Brasil / Imaflora",c:"par",p:2,f:"Rastreabilidade e transparência em cadeias com povos tradicionais (selo Origens Brasil).",t:"Rastreabilidade e mensuração de impacto conversam. Vamos trocar?",w:["Qua 11h30 · Sala Igarapé (moderador)","Qui 15h15 · Palco Olho d’Água (lançamento do livro)"]},
+{id:"regina",n:"Regina Cervera",o:"C Minds · Inovação em Natureza",c:"par",p:2,f:"Inovação positiva para a natureza na América Latina. IA responsável. NaturaTech LAC.",t:"(em espanhol) IA responsable para medir impacto en la base: es lo que hace la Yami.",w:["Qui 9h30 · Sala Rebojo"]},
+{id:"adriana",n:"Adriana Carvalho",o:"Instituto Consulado da Mulher",c:"par",p:2,f:"Equidade de gênero e autonomia econômica das mulheres. Atua no W20 Brasil.",t:"A Tewá tem o Índice Municipal de Gênero e a Yami tem temática de gênero. Vamos conversar?",w:["Qui 9h30 · Centro Comunitário"]},
+{id:"camile",n:"Camile Lisboa",o:"Caminho da Mata · Fundadora",c:"par",p:3,f:"Consultoria em cadeias e negócios em mais de 30 municípios. GT de Serviços de Bioeconomia da ASSOBIO.",t:"Somos consultorias parecidas. A Yami pode servir aos projetos de vocês.",w:["Qui 9h30 · Conversas que movem"]},
+{id:"emerson",n:"Emerson Baú",o:"Sebrae Roraima · Superintendente",c:"par",p:3,f:"Pequenos negócios e desenvolvimento regional. Ex-secretário estadual.",t:"Como o Sebrae acompanha o impacto dos negócios atendidos? A Yami pode ajudar nisso.",w:["Qua 16h30 · Sala Rebojo"]},
+{id:"koury",n:"Carlos Koury",o:"Idesam · PPBio",c:"par",p:3,f:"Diretor de Inovação em Bioeconomia. Supervisiona o PPBio (recursos de P&D via Suframa).",t:"Projetos de P&D em bioeconomia precisam medir impacto. A Yami cabe no PPBio?",w:["Qui 16h · Plenária Banzeiro (moderador)"]},
+{id:"elis",n:"Elis Alquezar",o:"Move Social · Sócia",c:"par",p:3,f:"Avaliação e aprendizagem para ampliar impacto socioambiental.",t:"Avaliação e tecnologia: onde a Yami pode apoiar o trabalho de vocês?",w:["Qua 16h30 · Sala Rebojo (moderadora)"]},
+{id:"bruna",n:"Bruna de Vita",o:"Ministério do Meio Ambiente",c:"gov",p:2,f:"Plano Nacional de Bioeconomia, Plano de Sociobioeconomia e regulamentação do PSA.",t:"Planos nacionais precisam de indicadores na ponta. A Tewá faz isso, como no Índice Municipal de Gênero.",w:["Qua 11h30 · Sala Igarapé","Qua 14h15 · Centro Comunitário","Qui 9h30 · Conversas que movem"]},
+{id:"bemerguy",n:"Camille Bemerguy",o:"SEMAS-PA · Bioeconomia",c:"gov",p:3,f:"Secretária adjunta de bioeconomia. Coordenou o Plano Estadual de Bioeconomia do Pará.",t:"Como vocês monitoram o plano estadual na ponta?",w:["Qua 14h15 · Palco Olho d’Água","Qui 9h30 · Conversas que movem"]},
+{id:"rosenberg",n:"Renato Rosenberg",o:"Serviço Florestal Brasileiro",c:"gov",p:3,f:"Diretor de concessões florestais, PPPs e economia da biodiversidade.",t:"Concessões têm contrapartidas socioeconômicas. Como vocês monitoram isso hoje?",w:["Qui 9h30 · Conversas que movem"]},
+{id:"jsimoes",n:"Juliana Simões",o:"TNC · Povos e Comunidades Tradicionais",c:"esc",p:2,f:"Povos indígenas e comunidades tradicionais. Já liderou políticas no MMA.",t:"Como medir impacto junto com as comunidades, sem impor uma régua de fora?",w:["Qua 11h30 · Sala Igapó","Qui 9h30 · Conversas que movem"]},
+{id:"braulina",n:"Braulina Aurora",o:"UnB / ABIA · Cientista indígena",c:"esc",p:2,f:"Direitos territoriais e de gênero, economia indígena.",t:"Conversa de escuta: economia indígena, direitos territoriais e como construir tecnologia com consentimento das comunidades.",w:["Qui 9h30 · Conversas que movem"]},
+{id:"bia",n:"Bia Saldanha",o:"Amazônia Meu Amor / EDF",c:"esc",p:3,f:"Justiça climática. Inclusão de povos tradicionais no mercado de carbono.",t:"Como garantir que a mensuração de impacto não exclua quem está na ponta?",w:["Qua 11h30 · Palco Olho d’Água (moderadora)","Qui 9h30 · Conversas que movem","Qui 17h15 · Encerramento"]}
+];
+const PM={};P.forEach(x=>PM[x.id]=x);
+
+const DAYS={
+d1:{label:"Qua 4/11",date:"2026-11-04",slots:[
+ {s:"08:30",e:"09:30",pause:"Credenciamento e café de boas-vindas"},
+ {s:"09:30",e:"10:15",pick:{sala:"Plenária Banzeiro",t:"Abertura",why:"Única opção."}},
+ {s:"10:15",e:"11:30",pick:{sala:"Plenária Banzeiro",t:"Pontos de partida: o futuro aponta para o Norte",why:"Única opção. Bom para mapear o clima do evento."}},
+ {s:"11:30",e:"13:00",pick:{sala:"Sala Rebojo",t:"Quem sustenta o longo prazo? Capital através de gerações",why:"Capital familiar e filantrópico de longo prazo.",ppl:["anne","bianca","ilana","raquel"]},
+   alts:[{sala:"Sala Igapó",t:"Da intenção à sociobioeconomia",ppl:["ellen","denis","jsimoes"]},{sala:"Sala Igarapé",t:"PSA na Amazônia",ppl:["brasi","bruna"]}]},
+ {s:"13:00",e:"14:15",pause:"Almoço livre · bom para conversas marcadas"},
+ {s:"14:15",e:"15:30",pick:{sala:"Sala Rebojo",t:"Cinco anos apoiando negócios de impacto",why:"Aceleradoras e dinamizadores que acompanham o impacto do portfólio.",ppl:["folgado"]},
+   alts:[{sala:"Sala Igarapé",t:"Capital filantrópico na base"},{sala:"Centro Comunitário",t:"Políticas públicas no território",ppl:["bruna"]}]},
+ {s:"15:30",e:"16:30",pause:"Coffee · bom momento para encontrar Ellen (BID) e Luiz Brasi (Origens Brasil)",ppl:["ellen","brasi"]},
+ {s:"16:30",e:"17:45",hot:true,pick:{sala:"Sala Igapó",t:"Medir para avançar: impacto, dados e inteligência",why:"A mesa sobre mensuração de impacto. Ouça e converse com quem está na mesa no fim.",ppl:["abfig","andrea","sobreira"]},
+   alts:[{sala:"Sala Rebojo",t:"Entre dinamizadores (Sebrae, Fundo Vale, AMAZ)",ppl:["marcia","gsouza","emerson","elis"]},{sala:"Sala Igarapé",t:"Ferramenta de maturidade da Rede Pan-Amazônica",ppl:["anacarol"]}]},
+ {s:"17:45",e:"19:00",pick:{sala:"Plenária Banzeiro",t:"Bodó na sala",why:"Única opção. Investidores e FAS.",ppl:["pugas"]}}
+]},
+d2:{label:"Qui 5/11",date:"2026-11-05",slots:[
+ {s:"08:30",e:"09:30",pause:"Café de boas-vindas"},
+ {s:"09:30",e:"10:45",hot:true,pick:{sala:"Plenária Banzeiro",t:"Conversas que movem",why:"Você senta à mesa com as lideranças. Escolha 2 mesas e saia com um próximo passo.",ppl:["melissa","ellen","luciana","werner","marcia","denis","motta","joana","bruna","bemerguy","rosenberg","jsimoes","braulina","camile","bia"]},
+   alts:[{sala:"Sala Rebojo",t:"Deep Tech na Amazônia",ppl:["regina"]},{sala:"Centro Comunitário",t:"Roda de mulheres que empreendem",ppl:["adriana"]}]},
+ {s:"11:00",e:"12:15",pick:{sala:"Sala Igapó",t:"Uma agenda pan-amazônica de impacto",why:"A Yami mira a América Latina. Painel em espanhol.",ppl:["janeth"]},
+   alts:[{sala:"Sala Terra Firme",t:"ESG, suprimentos e grandes empresas (Natura, CNP)"},{sala:"Sala Igarapé",t:"Rota 26-30: prioridades para as Amazônias"}]},
+ {s:"12:15",e:"14:00",pause:"Almoço livre · bom para conversas marcadas"},
+ {s:"14:00",e:"15:15",hot:true,pick:{sala:"Sala Igarapé",t:"Do outro lado da mesa: o pitch dos investidores",why:"Como os investidores avaliam negócios amazônicos. Insumo direto para o pitch.",ppl:["thais","nakahara","cwerner"]},
+   alts:[{sala:"Sala Rebojo",t:"Do território ao sistema",ppl:["joana"]},{sala:"Sala Terra Firme",t:"Como financiar as cadeias da sociobiodiversidade",ppl:["marcia"]}]},
+ {s:"15:15",e:"16:00",pause:"Coffee · Palco Olho d’Água: 15h15 livro Origens Brasil, 15h30 Amazon Food & Forest, 15h45 Rede Bioamazônia",ppl:["brasi"]},
+ {s:"16:00",e:"17:15",pick:{sala:"Sala Rebojo",t:"Restaurar a floresta dá negócio?",why:"Juliana Vilhena lidera a mensuração de impacto do Fundo Vale.",ppl:["jvilhena","folgado"]},
+   alts:[{sala:"Plenária Banzeiro",t:"PPBio: relatório 2019–2025",ppl:["koury"]}]},
+ {s:"17:15",e:"18:30",pick:{sala:"Plenária Banzeiro",t:"Conversas à beira do rio + encerramento",why:"Única opção.",ppl:["bia"]}},
+ {s:"18:30",e:"22:00",pause:"Happy hour · último networking"}
+]}};
+
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const initials=n=>n.split(" ").filter(w=>w.length>2||w===n.split(" ")[0]).map(w=>w[0]).slice(0,2).join("");
+const fmt=t=>t.replace(":00","h").replace(":","h");
+let store={};
+try{store=JSON.parse(localStorage.getItem("fiinsa-notes")||"{}")}catch(e){store={}}
+const save=()=>{try{localStorage.setItem("fiinsa-notes",JSON.stringify(store))}catch(e){}};
+
+function pbtn(id){const x=PM[id];if(!x)return"";const met=store[id]&&store[id].met?" ✓":"";
+  return `<button type="button" class="pbtn c-${x.c}" data-go="${id}">${x.p===1?"★ ":""}${esc(x.n)}${met}</button>`}
+function slotHTML(sl,label){
+  const tm=`<div class="time">${label?`<span class="now-label">${label}</span> `:""}${fmt(sl.s)}–${fmt(sl.e)}</div>`;
+  if(sl.pause){return `<article class="card pause">${tm}<p class="sess">${esc(sl.pause)}</p>${sl.ppl?`<div class="ppl">${sl.ppl.map(pbtn).join("")}</div>`:""}</article>`}
+  const pk=sl.pick;
+  return `<article class="card${sl.hot?" hot":""}">${tm}
+   ${sl.hot?`<span class="chip c-hot" style="align-self:flex-start">Imperdível</span>`:""}
+   <div class="room">Vá para: ${esc(pk.sala)}</div>
+   <div class="sess">${esc(pk.t)}</div>
+   <p class="why">${esc(pk.why)}</p>
+   ${pk.ppl?`<div class="ppl">${pk.ppl.map(pbtn).join("")}</div>`:""}
+   ${(sl.alts||[]).map(a=>`<div class="alt"><span class="lbl">Plano B · ${esc(a.sala)}</span><div class="sess">${esc(a.t)}</div>${a.ppl?`<div class="ppl">${a.ppl.map(pbtn).join("")}</div>`:""}</div>`).join("")}
+  </article>`}
+
+const pad=n=>String(n).padStart(2,"0");
+const mins=t=>{const[a,b]=t.split(":").map(Number);return a*60+b};
+function renderAgora(){
+  const d=new Date();const iso=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;const m=d.getHours()*60+d.getMinutes();
+  let out=`<p class="eyebrow">Agora são ${pad(d.getHours())}h${pad(d.getMinutes())}</p>`;
+  let day=iso===DAYS.d1.date?"d1":iso===DAYS.d2.date?"d2":null;
+  if(!day){
+    if(iso<DAYS.d1.date){out+=`<h2>O festival começa na quarta, 4/11</h2>`+slotHTML(DAYS.d1.slots[3],"Primeiro painel")}
+    else{out+=`<h2>O FIINSA terminou</h2><p>Revise suas anotações na aba Pessoas e mande os e-mails de follow-up.</p>`}
+    $("#v-agora").innerHTML=out;return}
+  const sl=DAYS[day].slots;const cur=sl.find(x=>m>=mins(x.s)&&m<mins(x.e));const nx=sl.find(x=>mins(x.s)>m);
+  out+=`<h2>${DAYS[day].label}</h2>`;
+  if(cur)out+=slotHTML(cur,"AGORA");
+  if(nx)out+=slotHTML(nx,"DEPOIS");
+  if(!cur&&!nx){out+=`<p class="big">Fim do dia.</p>`;if(day==="d1")out+=slotHTML(DAYS.d2.slots[1],"Amanhã cedo")}
+  $("#v-agora").innerHTML=out}
+
+let agDay=(new Date().getDate()===5&&new Date().getMonth()===10)?"d2":"d1";
+function renderAgenda(){
+  $("#v-agenda").innerHTML=`<div class="days">${["d1","d2"].map(k=>`<button type="button" class="daybtn" data-day="${k}" aria-pressed="${k===agDay}">${DAYS[k].label}</button>`).join("")}</div>`+DAYS[agDay].slots.map(s=>slotHTML(s)).join("")}
+
+let filt="todos",q="";
+function personHTML(x){const s=store[x.id]||{};
+  return `<article class="card person k-${x.c}" id="p-${x.id}">
+   <div class="ph"><div class="avatar" aria-hidden="true">${esc(initials(x.n))}</div>
+     <div style="min-width:0"><h3>${x.p===1?"★ ":""}${esc(x.n)}</h3><p class="org">${esc(x.o)}</p></div></div>
+   <div><span class="chip c-${x.c}">${CAT[x.c]}</span> ${s.met?`<span class="metbadge">✓ Já conversei</span>`:""}</div>
+   <div class="field"><b>Onde encontrar</b><ul class="where">${x.w.map(w=>`<li>${esc(w)}</li>`).join("")}</ul></div>
+   <p class="field"><b>Foco</b>${esc(x.f)}</p>
+   <p class="pitch"><b style="display:block;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase">Seu gancho</b>${esc(x.t)}</p>
+   <label class="met"><input type="checkbox" id="met-${x.id}" data-met="${x.id}" ${s.met?"checked":""}> Já conversei</label>
+   <label for="note-${x.id}" class="field"><b>Como reconhecer · o que combinamos</b></label>
+   <textarea id="note-${x.id}" data-note="${x.id}" placeholder="Ex.: óculos vermelhos, cabelo curto. Mandar e-mail sexta.">${esc(s.note||"")}</textarea>
+  </article>`}
+function renderPessoas(){
+  const fl=[["todos","Todos"],["p1","★ Prioridade"],["cap","Capital"],["par","Parceria"],["gov","Governo"],["esc","Escuta"],["met","Já conversei"]];
+  $("#v-pessoas").innerHTML=`<label for="busca" class="eyebrow">Buscar por nome, organização ou anotação</label>
+   <input id="busca" class="search" type="search" placeholder="Ex.: BID, Fundo Vale, óculos…" value="${esc(q)}">
+   <div class="filters">${fl.map(([k,l])=>`<button type="button" class="fbtn" data-f="${k}" aria-pressed="${k===filt}">${l}</button>`).join("")}</div>
+   <div id="plist" class="view"></div>`;
+  listPessoas()}
+function listPessoas(){
+  const qq=q.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+  const r=P.filter(x=>{const s=store[x.id]||{};
+    if(filt==="p1"&&x.p!==1)return false; if(["cap","par","gov","esc"].includes(filt)&&x.c!==filt)return false; if(filt==="met"&&!s.met)return false;
+    if(!qq)return true;
+    return (x.n+" "+x.o+" "+(s.note||"")).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(qq)}).sort((a,b)=>a.p-b.p);
+  $("#plist").innerHTML=r.length?r.map(personHTML).join(""):`<p class="empty">Ninguém encontrado. Tente outro nome ou limpe o filtro.</p>`}
+
+function renderPitch(){
+  $("#v-pitch").innerHTML=`
+  <article class="card"><p class="eyebrow">Versão 30 segundos</p>
+   <p class="big">Oi, eu sou a Maitê, coordenadora de inovação da Tewá 225, uma consultoria socioambiental com 12 anos de estrada.</p>
+   <p class="big"><b>Hoje medir impacto na Amazônia é caro e lento, e quem está na ponta fica de fora.</b></p>
+   <p class="big">Por isso estamos desenvolvendo a Yami, uma plataforma com IA que torna a mensuração de impacto simples e barata. A coleta é leve, sem burocracia, e qualquer organização consegue medir e mostrar o impacto do que faz, mesmo sem equipe técnica e com pouco recurso.</p></article>
+  <article class="card"><p class="eyebrow">Versão 10 segundos</p>
+   <p class="big">Sou a Maitê, da Tewá 225. Hoje medir impacto na Amazônia é caro e lento, e quem está na ponta fica de fora. A Yami usa IA para mudar isso.</p></article>
+  <p class="eyebrow">Fechamento: escolha pela cor da pessoa</p>
+  <article class="card person k-cap"><span class="chip c-cap" style="align-self:flex-start">Capital</span><p class="big">Como vocês medem hoje o impacto de quem apoiam na ponta?</p></article>
+  <article class="card person k-par"><span class="chip c-par" style="align-self:flex-start">Parceria / cliente</span><p class="big">Estamos buscando organizações para pilotar com a gente. Faz sentido conversarmos?</p></article>
+  <article class="card person k-gov"><span class="chip c-gov" style="align-self:flex-start">Governo</span><p class="big">Dados da ponta podem alimentar os indicadores do plano de vocês.</p></article>
+  <article class="card person k-esc"><span class="chip c-esc" style="align-self:flex-start">Escuta</span><p class="big">Pergunte e ouça.</p></article>
+  <article class="card"><p class="eyebrow">Depois de cada conversa</p><p class="big">Marque “Já conversei” e anote como a pessoa é e o próximo passo. Assim você reconhece o rosto e lembra o nome.</p></article>`}
+
+const tabs=["agora","agenda","pessoas","pitch"];
+function show(t){if(!tabs.includes(t))t="agora";
+  tabs.forEach(k=>{$("#v-"+k).hidden=k!==t;const a=document.querySelector(`[data-tab="${k}"]`);if(k===t)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  if(t==="agora")renderAgora(); if(t==="agenda")renderAgenda(); if(t==="pessoas")renderPessoas(); if(t==="pitch")renderPitch();
+  window.scrollTo(0,0)}
+function goPerson(id){filt="todos";q="";if(location.hash!=="#pessoas"){history.replaceState(null,"","#pessoas")}show("pessoas");
+  const el=document.getElementById("p-"+id);if(el){el.scrollIntoView({block:"start"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800)}}
+
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-go]");if(g){goPerson(g.dataset.go);return}
+  const d=e.target.closest("[data-day]");if(d){agDay=d.dataset.day;renderAgenda();return}
+  const f=e.target.closest("[data-f]");if(f){filt=f.dataset.f;document.querySelectorAll("[data-f]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===filt));listPessoas();return}});
+document.addEventListener("input",e=>{
+  if(e.target.id==="busca"){q=e.target.value;listPessoas();return}
+  const n=e.target.dataset.note;if(n){store[n]=Object.assign({},store[n],{note:e.target.value});save()}});
+document.addEventListener("change",e=>{const id=e.target.dataset.met;if(id){store[id]=Object.assign({},store[id],{met:e.target.checked});save();
+  const card=document.getElementById("p-"+id);if(card){const b=card.querySelector(".metbadge");if(e.target.checked&&!b)card.querySelector(".chip").insertAdjacentHTML("afterend",' <span class="metbadge">✓ Já conversei</span>');if(!e.target.checked&&b)b.remove()}}});
+
+let size=1;try{size=Number(localStorage.getItem("fiinsa-size"))||1}catch(e){}
+const applySize=()=>{document.documentElement.dataset.size=String(size);$("#sizeBtn").textContent=size===3?"A−":"A+"};
+$("#sizeBtn").addEventListener("click",()=>{size=size>=3?1:size+1;applySize();try{localStorage.setItem("fiinsa-size",String(size))}catch(e){}});
+applySize();
+window.addEventListener("hashchange",()=>show(location.hash.slice(1)));
+show(location.hash.slice(1)||"agora");
+setInterval(()=>{if(!$("#v-agora").hidden)renderAgora()},60000);
+</script>
+
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
+</body>
+</html>

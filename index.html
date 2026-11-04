@@ -47,6 +47,8 @@ body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:1rem
   padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));
   padding-block:0 calc(5.2rem + env(safe-area-inset-bottom, 0px))}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
+.back{align-self:flex-start;border:2px solid var(--fg);background:var(--card);border-radius:.7rem;padding:.5rem .9rem;font-weight:700;cursor:pointer}
 main{max-width:46rem;margin:0 auto}
 h1,h2,h3{text-wrap:balance;margin:0;line-height:1.2}
 button,input,textarea{font:inherit;color:inherit}
@@ -271,7 +273,8 @@ function personHTML(x){const s=store[x.id]||{};
   </article>`}
 function renderPessoas(){
   const fl=[["todos","Todos"],["p1","★ Prioridade"],["cap","Capital"],["par","Parceria"],["gov","Governo"],["esc","Escuta"],["met","Já conversei"]];
-  $("#v-pessoas").innerHTML=`<label for="busca" class="eyebrow">Buscar por nome, organização ou anotação</label>
+  $("#v-pessoas").innerHTML=`${backTo?`<button type="button" class="back" data-back="1">← Voltar para ${backTo==="agenda"?"a Agenda":"Agora"}</button>`:""}
+   <label for="busca" class="eyebrow">Buscar por nome, organização ou anotação</label>
    <input id="busca" class="search" type="search" placeholder="Ex.: BID, Fundo Vale, óculos…" value="${esc(q)}">
    <div class="filters">${fl.map(([k,l])=>`<button type="button" class="fbtn" data-f="${k}" aria-pressed="${k===filt}">${l}</button>`).join("")}</div>
    <div id="plist" class="view"></div>`;
@@ -300,15 +303,19 @@ function renderPitch(){
   <article class="card"><p class="eyebrow">Depois de cada conversa</p><p class="big">Marque “Já conversei” e anote como a pessoa é e o próximo passo. Assim você reconhece o rosto e lembra o nome.</p></article>`}
 
 const tabs=["agora","agenda","pessoas","pitch"];
+let curTab="agora",backTo=null,backY=0;
 function show(t){if(!tabs.includes(t))t="agora";
+  if(t!=="pessoas")backTo=null; curTab=t;
   tabs.forEach(k=>{$("#v-"+k).hidden=k!==t;const a=document.querySelector(`[data-tab="${k}"]`);if(k===t)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
   if(t==="agora")renderAgora(); if(t==="agenda")renderAgenda(); if(t==="pessoas")renderPessoas(); if(t==="pitch")renderPitch();
   window.scrollTo(0,0)}
-function goPerson(id){filt="todos";q="";if(location.hash!=="#pessoas"){history.replaceState(null,"","#pessoas")}show("pessoas");
+function goPerson(id){if(curTab!=="pessoas"){backTo=curTab;backY=window.scrollY}
+  filt="todos";q="";if(location.hash!=="#pessoas"){history.replaceState(null,"","#pessoas")}show("pessoas");
   const el=document.getElementById("p-"+id);if(el){el.scrollIntoView({block:"start"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800)}}
 
 document.addEventListener("click",e=>{
   const g=e.target.closest("[data-go]");if(g){goPerson(g.dataset.go);return}
+  if(e.target.closest("[data-back]")&&backTo){const t=backTo,y=backY;backTo=null;history.replaceState(null,"","#"+t);show(t);window.scrollTo(0,y);return}
   const d=e.target.closest("[data-day]");if(d){agDay=d.dataset.day;renderAgenda();return}
   const f=e.target.closest("[data-f]");if(f){filt=f.dataset.f;document.querySelectorAll("[data-f]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===filt));listPessoas();return}});
 document.addEventListener("input",e=>{

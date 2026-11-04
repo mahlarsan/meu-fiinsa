@@ -26,6 +26,7 @@ body{margin:0}
   --gov:#76288A; --gov-soft:#F1E2F5;
   --esc:#A84A06; --esc-soft:#FBE8D8;
   --hot:#C0122A; --hot-soft:#FCE1E4;
+  --out:#4B5852; --out-soft:#E6ECE8;
   --nav:#111714; --nav-fg:#FFFFFF;
   --font:"Atkinson Hyperlegible", "Verdana", "Segoe UI", system-ui, sans-serif;
   --base:19px;
@@ -34,12 +35,12 @@ body{margin:0}
   --bg:#0E1311; --card:#19201C; --fg:#F1F5F2; --muted:#B4C2BA; --line:#34413A;
   --cap:#63D69C; --cap-soft:#163527; --par:#93B4FF; --par-soft:#1A2643;
   --gov:#DDA2EA; --gov-soft:#33203A; --esc:#FFB26B; --esc-soft:#3A2614;
-  --hot:#FF7C88; --hot-soft:#3D1A1F; --nav:#F1F5F2; --nav-fg:#0E1311; color-scheme:dark}}
+  --hot:#FF7C88; --hot-soft:#3D1A1F; --out:#AEBDB5; --out-soft:#26302B; --nav:#F1F5F2; --nav-fg:#0E1311; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0E1311; --card:#19201C; --fg:#F1F5F2; --muted:#B4C2BA; --line:#34413A;
   --cap:#63D69C; --cap-soft:#163527; --par:#93B4FF; --par-soft:#1A2643;
   --gov:#DDA2EA; --gov-soft:#33203A; --esc:#FFB26B; --esc-soft:#3A2614;
-  --hot:#FF7C88; --hot-soft:#3D1A1F; --nav:#F1F5F2; --nav-fg:#0E1311; color-scheme:dark}
+  --hot:#FF7C88; --hot-soft:#3D1A1F; --out:#AEBDB5; --out-soft:#26302B; --nav:#F1F5F2; --nav-fg:#0E1311; color-scheme:dark}
 :root[data-size="2"]{--base:22px}
 :root[data-size="3"]{--base:26px}
 html{font-size:var(--base)}
@@ -64,6 +65,9 @@ button,input,textarea{font:inherit;color:inherit}
 .c-gov{color:var(--gov);background:var(--gov-soft)}
 .c-esc{color:var(--esc);background:var(--esc-soft)}
 .c-hot{color:var(--hot);background:var(--hot-soft)}
+.c-out{color:var(--out);background:var(--out-soft)}
+.k-out{--k:var(--out);--ks:var(--out-soft)}
+.divider{margin-top:.5rem;padding-top:.75rem;border-top:3px solid var(--fg);font-size:1.15rem}
 .view{display:flex;flex-direction:column;gap:1rem}
 .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .card{background:var(--card);border:2px solid var(--line);border-radius:1rem;padding:1rem;display:flex;flex-direction:column;gap:.6rem;min-width:0}
@@ -113,7 +117,7 @@ nav.tabs a[aria-current="page"]{background:var(--nav-fg);color:var(--nav)}
 
 <main>
   <div class="top">
-    <h1>Meu FIINSA<small>4 e 5 de novembro · Manaus Plaza · versão 4</small></h1>
+    <h1>Meu FIINSA<small>4 e 5 de novembro · Manaus Plaza · versão 5</small></h1>
     <button class="size" id="sizeBtn" type="button" aria-label="Aumentar letra">A+</button>
   </div>
   <div class="legend" aria-label="Legenda de cores">
@@ -121,6 +125,7 @@ nav.tabs a[aria-current="page"]{background:var(--nav-fg);color:var(--nav)}
     <span class="chip c-par">Parceria / cliente</span>
     <span class="chip c-gov">Governo</span>
     <span class="chip c-esc">Escuta</span>
+    <span class="chip c-out">Palestrante</span>
     <span class="chip c-hot">Imperdível</span>
   </div>
 
@@ -138,7 +143,7 @@ nav.tabs a[aria-current="page"]{background:var(--nav-fg);color:var(--nav)}
 </nav>
 
 <script>
-const CAT={cap:"Capital",par:"Parceria / cliente",gov:"Governo",esc:"Escuta"};
+const CAT={cap:"Capital",par:"Parceria / cliente",gov:"Governo",esc:"Escuta",out:"Palestrante"};
 const P=[
 {id:"anne",n:"Anne Rammi",o:"Be The Earth Foundation · CEO",c:"cap",p:1,f:"Filantropia, negócios regenerativos e investimento ético. Economias do cuidado; ecofeminista.",t:"Combinar um café para apresentar a Tewá e a Yami com calma. Ângulo: cuidado e gênero, e como as organizações de base podem medir o que fazem.",w:["Qua 11h30 · Sala Rebojo (palestrante)"]},
 {id:"ellen",n:"Ellen Acioli",o:"BID · Especialista Amazônia",c:"cap",p:1,f:"Bioeconomia e fortalecimento de territórios e comunidades. Articula governo, empresas e povos tradicionais.",t:"O BID financia muitos projetos territoriais. A Yami pode padronizar a mensuração de impacto dos executores, inclusive dos pequenos. Que caminho existe via BID Lab?",w:["Qua 11h30 · Sala Igapó (moderadora)","Qua 14h15 · Palco Olho d’Água (moderadora)","Qui 9h30 · Conversas que movem"]},
@@ -178,7 +183,233 @@ const P=[
 {id:"braulina",n:"Braulina Aurora",o:"UnB / ABIA · Cientista indígena",c:"esc",p:2,f:"Direitos territoriais e de gênero, economia indígena.",t:"Conversa de escuta: economia indígena, direitos territoriais e como construir tecnologia com consentimento das comunidades.",w:["Qui 9h30 · Conversas que movem"]},
 {id:"bia",n:"Bia Saldanha",o:"Amazônia Meu Amor / EDF",c:"esc",p:3,f:"Justiça climática. Inclusão de povos tradicionais no mercado de carbono.",t:"Como garantir que a mensuração de impacto não exclua quem está na ponta?",w:["Qua 11h30 · Palco Olho d’Água (moderadora)","Qui 9h30 · Conversas que movem","Qui 17h15 · Encerramento"]}
 ];
-const PM={};P.forEach(x=>PM[x.id]=x);
+const OUT=[
+["adriano","Adriano Santos","Conexsus · Programa Veredas","Crédito orientado e gestão para negócios comunitários da sociobioeconomia."],
+["drika","Adriele Albuquerque (Drika)","AL Produções / AIHHUAM","Hip hop, economia criativa e projetos culturais nas periferias amazônicas."],
+["alessandra","Alessandra Rodrigues de Sousa","AMPPF · Mulheres Produtoras de Polpas","Agricultura familiar e empreendedorismo feminino no Xingu."],
+["aline","Aline Souza","SBSA Advogados · Inovação e impacto","Direito de negócios de impacto. Professora da FGV. Projeto Contratos Justos na Amazônia."],
+["amiraldo","Amiraldo Picanço","Amazonbai · Presidente","Cooperativa de açaí do Bailique. Manejo florestal comunitário e certificação."],
+["anaclaudia","Ana Cláudia Torres","Instituto Mamirauá · Manejo de Pesca","Acordos de pesca e assessoria a comunidades ribeirinhas."],
+["aferreira","André Ferreira","JGIM · Líder Técnico","Restauração florestal e produção integrada em cerca de 20 mil hectares."],
+["avianna","André Vianna","Idesam · Diretor Técnico","Redes de valor sustentáveis. Um dos organizadores do FIINSA."],
+["aramos","André Ramos","Conexsus · Programas e Conhecimento","Sociobioeconomia e negócios de impacto."],
+["ticoulat","André Ticoulat","TransCap Initiative","Investimento sistêmico. Pesquisa sobre barreiras da sociobioeconomia na Amazônia Legal."],
+["ufer","Andreas Ufer","Sense-Lab · Fundador","Consultoria estratégica e governança participativa."],
+["antonio","Antônio David Brito Lima","APACJG · Presidente","Associação de produtores agroextrativistas."],
+["atila","Átila Denys","DD&L Associados · Fundador","Investidor da bioeconomia, com aportes em mais de 30 startups. Aceleradora Axcell."],
+["bebeto","Bebeto Zscaber","Movimento Choice","Formação de empreendedores de impacto. Programa Amazônia em Casa, Floresta em Pé."],
+["berna","Berna Magalhães","Libra · Sócio-diretor","Branding e design para marcas com origem amazônica."],
+["bcantal","Bruna Cantal","RIBBA / Mahá Biocosméticos","Bioinsumos cosméticos. Rede de inovação do Baixo Amazonas."],
+["mangolini","Bruno Mangolini","Poranduba Amazônia","Ecoturismo de imersão comunitária."],
+["caetano","Caetano Scannavino","Projeto Saúde & Alegria","Quase 40 anos de tecnologias socioambientais na Amazônia."],
+["chcarvalho","Carlos Henrique Soares Carvalho","CBA · Diretor de Bionegócios","Liga ciência e setor produtivo para bionegócios."],
+["tijolo","Carlos Silva (Professor Tijolo)","UFAM / UEA","Arqueologia e modos de vida amazônicos."],
+["cgraca","Carolina Graça","Green Bridge Facility (Instituto Igarapé)","Riscos territoriais e investimento em soluções baseadas na natureza."],
+["cvilanova","Caroline Vilanova","Grupo Flor de Jambu / ASSOBIO","Comercialização e logística de produtos da sociobiodiversidade."],
+["carolle","Carolle Alarcon","Imaflora · Cadeias Responsáveis","Rastreabilidade de pecuária e soja."],
+["clara","Clara Bresser","Impact Bank / Amazon Food & Forest Fund","Fundo misto com o BTG. Mobilização de recursos."],
+["claudiabare","Claudia Baré","Suri Art’s Baré","Artesã e liderança indígena. Cofundadora do Parque das Tribos."],
+["betancur","Claudia Betancur","Biointropic (Colômbia)","Inovação e aceleração de bionegócios."],
+["gibeli","Claudia Gibeli","Fundo Casa Socioambiental","Filantropia comunitária e negócios da sociobiodiversidade."],
+["claudio","Cláudio dos Anjos","Régia Capital","Fundos baseados na natureza e blended finance."],
+["cleidiana","Cleidiana Neres da Silva","COOPER (Carajás)","Gestão de cooperativa de polpas de frutas."],
+["dacota","DaCota MC","Coletivo 333","Rap e trap do Norte."],
+["dbrandao","Daniel Brandão","Vox Capital · Sócio","Soluções baseadas na natureza. Fundo catalítico CCAT."],
+["contrucci","Daniel Contrucci","Climate Ventures · co-CEO","Inovação climática e finanças climáticas. Nature Investment Lab."],
+["daniella","Daniella Bezerra","Instituto IPDEC","Ciência, tecnologia e inovação."],
+["diegov","Diego Viégas","Natura Ingredientes","Cadeias da sociobiodiversidade e relação com comunidades."],
+["edleno","Edleno Moura","ICOMP/UFAM","Computação. Cofundador de startups de tecnologia em Manaus."],
+["edson","Edson Souza","Salgadeira Cabocla / RDS Mamirauá","Manejo comunitário do pirarucu."],
+["ecury","Eduardo Cury","Instituto Clima e Sociedade","Finanças climáticas para uso da terra. Eco Invest, Plano Safra."],
+["ourivio","Eduardo Ourivio","Grupo Trigo · Fundador","Spoleto e outras marcas. Rede Endeavor. Patrocinador do FIINSA."],
+["erocha","Eduardo Rocha","Plataforma Parceiros pela Amazônia","Parcerias multissetoriais para a bioeconomia."],
+["taveira","Eduardo Taveira","Ex-secretário de Meio Ambiente do AM","REDD+, mercado de carbono e PSA."],
+["elijane","Elijane Nogueira","YANCIÃ","Moda decolonial com biomateriais e artesanato."],
+["elisangela","Elisangela Cavalcante","RDS do Uatumã","Liderança ribeirinha. Movelaria comunitária."],
+["emanuelle","Emanuelle Raiol Pinto","Instituto Mamirauá · Manejo Florestal","Manejo florestal comunitário e cadeias da sociobiodiversidade."],
+["brosler","Eric Brosler","Remata Agroflorestal · CEO","Restauração produtiva e sistemas agroflorestais."],
+["estefania","Estefania Valencia","TruLab (Colômbia)","Investimento de impacto em agronegócio e bioeconomia."],
+["eva","Eva Duarte","Instituto Arumã / Avina","Desenvolvimento socioterritorial e redes na Pan-Amazônia."],
+["fabiane","Fabiane Almeida","Aqua Viridi · CEO","Biorrefinaria de microalgas. Premiada pela Finep e pelo Sebrae Mulher de Negócios."],
+["fabio","Fábio Soares Pereira","IFAC","PD&I e bioeconomia no Acre (projeto REVBIO, Finep)."],
+["falmeida","Felipe Almeida","Foxconn","Painel do PPBio."],
+["schaedler","Felipe Schaedler","Grupo Banzeiro","Chef de cozinha amazônica."],
+["fstefani","Fernanda Stefani","100% Amazônia · CEO","Bioingredientes da Amazônia exportados para mais de 60 países."],
+["gweber","Gabriela Weber","Natura · Sustentabilidade","Estratégia da Natura na Amazônia e PSA."],
+["georgia","Georgia Jordão","Uma Concertação pela Amazônia","Frente de conhecimento. Pesquisadora da UnB."],
+["geovanna","Geovanna Mariosa","CLIMÁTICA","Sociobioeconomia, filantropia, REDD+ e PSA."],
+["guilherme","Guilherme Eufrasio Pinheiro","WRI Brasil / Rede Pan-Amazônica","Engajamento de povos tradicionais na sociobioeconomia."],
+["hamilton","Hamilton Condack","Projeto RECA · Presidente","Cooperativa agroflorestal."],
+["heitor","Heitor Paulo Pinheiro","Associação de Guarda Parques do AM","Geoprocessamento. Atlas da Sociobioeconomia Quilombola."],
+["heliandro","Heliandro Maia","GIZ","Financiamento climático e controle do desmatamento."],
+["roncada","Henrique Roncada","WRI Brasil","Economia da restauração e valoração de serviços ecossistêmicos."],
+["iranilce","Iranilce Lanes","Resex Chico Mendes","Extrativista. Café em áreas já degradadas."],
+["izi","Izi Caterini Martinelli","Rede Conexão Povos da Floresta","Inclusão digital e saúde nos territórios."],
+["jackeline","Jackeline Arcos","Naturamazonas / CI Colombia","Bioeconomia pan-amazônica."],
+["allen","James Allen","Olab","Cadeias de suprimento e desmatamento zero."],
+["janes","Janes Silva","PA Tarumã Mirim","Avicultura na zona rural de Manaus."],
+["jvalois","Jéssica Valois","Coletivo Ponta de Lança","Cultura afro-ameríndia e juventude negra."],
+["jessilda","Jessilda Furtado","Amazon Poranga Fashion","Moda e economia criativa."],
+["jmartins","Joanna Martins","Manioca / Instituto Paulo Martins / Concertação","Gastronomia amazônica e inovação em alimentos."],
+["jonatas","Jônatas Machado","Amazônia Agroflorestal","Café Apuí Agroflorestal."],
+["jporto","Jorge Porto","Inpa","Coordenação de pesquisa. Bioeconomia."],
+["jmattos","José Mattos","ViaFloresta / Amazon Investor Coalition","Desenvolvimento territorial. Representante na ENIMPACTO."],
+["jrlima","José Roberto de Lima","ATRAMP (Pauini)","Cadeia da borracha nativa."],
+["jraraujo","José Rodrigues de Araújo","Cooperacre / OCB","Cooperativismo agroextrativista no Acre."],
+["jcarepa","Juliana Carepa","Jucarepa / ASSOBIO · Presidente","Bioingredientes (cumaru) e rastreabilidade."],
+["jteles","Juliana Teles","Impact Hub Manaus / Azô Capital","Cofundadora do FIINSA."],
+["julio","Júlio Barbosa","CNS · Presidente","Populações extrativistas."],
+["kedson","Kedson Castro","CONAQ","Agente territorial quilombola, em projeto com o BID."],
+["keila","Keila Brandão","Mawê Produtos da Amazônia","Produtos amazônicos para os mercados nacional e internacional."],
+["larissa","Larissa Bezerra","Somos Um","Empreendedorismo e educação para reduzir desigualdades."],
+["lamorim","Laura Amorim","Transforma.aí · Sócia","Monitoramento e avaliação, investimento social privado."],
+["lcunha","Laura Cunha","TNC","Painel sobre pecuária regenerativa."],
+["lferreira","Laura Ferreira da Silva","CONAQ · Quilombo Ribeirão da Mutuca","Projeto BID/CONAQ de bioeconomia quilombola."],
+["gottschall","Laura Gottschall","TNC","Blended finance para produção livre de desmatamento."],
+["lsouza","Laura Souza","ÓSocioBio","Políticas públicas e mercados institucionais da sociobiodiversidade."],
+["okamura","Leila Okamura","Local.e","Varejo para marcas locais. Ex-Nielsen."],
+["lguimaraes","Lucas Guimarães","AeroRiver · CEO","Veículos de efeito solo para a logística amazônica."],
+["ludmilla","Ludmilla Colares","Amazônia Agroflorestal","Assistência técnica em café agroflorestal."],
+["luzia","Luzia Raquel Said","SEDECTI-AM","Ciência, tecnologia e inovação no governo do Amazonas."],
+["macaulay","Macaulay Abreu","Navegam / ForestiFi","Inovação e bioeconomia."],
+["manoel","Manoel Cunha","ICMBio / ex-CNS","Liderança extrativista histórica do Médio Juruá."],
+["carcani","Manuela Carcani","CNP Seguradora · ESG","Indicadores ESG. Patrocinadora do FIINSA."],
+["muanis","Manuela Muanis","FUNBIO · Portfólio","Mecanismos financeiros socioambientais (Amazônia Viva)."],
+["mlourenco","Marcelo Lourenço","Caixa Econômica Federal","Agenda de negócios de impacto na Caixa."],
+["salazar","Marcelo Salazar","Mazô Maná · CEO","Rede Terra do Meio. Ex-ISA."],
+["bessa","Marcus Bessa","Impact Hub Manaus / Azô Capital","Cofundador do FIINSA."],
+["buosi","Maria Eugênia Buosi","Climate Ventures","Finanças sustentáveis."],
+["mhgomes","Maria Helena Gomes","AMPPF (São Félix do Xingu)","Cadeia do cacau e protagonismo feminino."],
+["mfornea","Maria Teresa Fornea","Endeavor Brasil · Diretora Geral","Empreendedores de alto crescimento."],
+["mbarrella","Mariana Reis Barrella","Grupo Tutiplast · CEO","Indústria com materiais da biodiversidade. Industrial do Ano 2026 (FIEAM)."],
+["mario","Mário Gouvêa","Eco Invest Brasil / Tesouro","Programa Eco Invest de capital para sustentabilidade."],
+["marisa","Marisa Taniguchi","Inatú Amazônia · CEO","Biotecnologia e cadeias da sociobiodiversidade."],
+["marlena","Marlena Soares","Instituto Regatão Amazônia","Cultura, clima e proteção territorial."],
+["martha","Martha de Sá","Violet / Fundo Cria","Capital institucional para quem restaura a natureza."],
+["favaro","Matheus Favaro","Unicafes RO","Cooperativas da agricultura familiar."],
+["max","Max Petrucci","MAHTA · CEO","Superalimentos amazônicos. Mentor Endeavor."],
+["mayra","Mayra Castro","InvestAmazônia · CEO","Parcerias e negócios na Amazônia."],
+["michelle","Michelle Guimarães","Navegam Log · CEO","Logística multimodal amazônica."],
+["muyara","Muyara Ruiz","COOPAITER","Cooperativa indígena Paiter Suruí."],
+["natalie","Natalie Unterstell","Talanoa · Presidente","Política climática. Painel do Green Climate Fund."],
+["natan","Natan Sousa Reis","COOMAC","Cooperativa agroextrativista em Bragança (PA)."],
+["nataly","Nataly Vieira","Pacto das Águas","Painel Cinco Amazônias."],
+["nayara","Nayara Oliveira","Nanna Personalizados","Empreendedora."],
+["nilde","Nilde Silva","Caboclos House","Hotel de selva que cresce com a comunidade."],
+["noanny","Noanny Maia","Cacauaré","Cacau nativo de várzea. Prêmio Sebrae Mulher de Negócios 2024."],
+["odenilze","Odenilze Ramos","FAS / Instituto Arumã","Empreendedorismo e turismo de base comunitária."],
+["pamella","Pâmella Santa Rosa","Amazonzyme · CEO","Enzimas e biotecnologia amazônica."],
+["pcarramaschi","Paula Carramaschi","Benevolência Consultoria","Facilitação e atuação em rede. Ex-FAS."],
+["pcayone","Paula Cayone","Quintessa · Comunicação","Aceleradora e consultoria de impacto."],
+["pmoreira","Paula Moreira","Azô Capital / ASSOBIO","Acesso a mercados e capital para a sociobiodiversidade."],
+["pvanessa","Paula Vanessa Silva","Instituto Floresta Tropical","Empreendimentos comunitários. Rede Pan-Amazônica."],
+["paulor","Paulo Reis","Manioca / ASSOBIO · Presidente","Alimentos e bebidas da biodiversidade amazônica."],
+["simonetti","Paulo Simonetti","Idesam · Inovação / ZOMA","Venture builder de sociobioeconomia."],
+["gayotto","Pedro Gayotto","Vivalá","Turismo sustentável."],
+["pisurui","Pi Suruí","Associação Metareilá","Projeto de Carbono Paiter Suruí."],
+["rachel","Rachel Biderman","Conservação Internacional","Programa das Américas. Rede Pan-Amazônica."],
+["raimundo","Raimundo Queiroz","Acordo de Pesca Pantaleão","Pescador e liderança de Alvarães."],
+["raylton","Raylton Pereira","Consultor ambiental","Restauração e cadeia da copaíba (ASAGA, Apuí)."],
+["rebecca","Rebecca Garcia","GBR","Painel do PPBio."],
+["rramos","Regina Ramos","Sapopema","Moda e cultura cabocla (RDS Rio Negro)."],
+["rcosta","Renata Costa","GIZ · Action4Forests","Financiamento climático para povos e comunidades."],
+["tedeschi","Renata Tedeschi","Instituto Tecnológico Vale","Clima e previsão com aprendizado de máquina."],
+["ramalho","Renato Ramalho","KPTL","Venture capital e inovação."],
+["rando","Renato Rando","DD&L","Painel do PPBio."],
+["rrebelo","Renato Rebelo","Idesam / ZOMA","Negócios da bioeconomia. Ex-fundo de impacto do Instituto Votorantim."],
+["reyariel","Rey Ariel Borbón","CI Colombia","Programa Paisajes Sostenibles."],
+["rcastro","Rodrigo Castro","Solidaridad Brasil","Inclusão e sustentabilidade em cadeias agropecuárias."],
+["rojefferson","Rojefferson Moraes","Instituto Soul do Monte","Mulheres empreendedoras na periferia de Manaus."],
+["rosange","Rosange Menezes","Lar Francisco de Assis","Trabalho socioassistencial."],
+["rosemeire","Rose Meire Apurinã","Fundo Podáali","Fundo indígena da Amazônia brasileira."],
+["rosimar","Rosimar dos Santos","AMARQVUC (Marajó)","Liderança quilombola."],
+["sandra","Sandra Amud","ASSOAB (Beruri)","Cadeia da castanha."],
+["sebastiao","Sebastião dos Santos Pereira","VEJA","Borracha nativa com 2.500 famílias de seringueiros."],
+["silvia","Silvia Letícia Dias","CART (Cametá)","Cooperativa agrícola."],
+["solange","Solange Feitosa","CAMPPAX","Crédito para cooperativa do Alto Xingu."],
+["soonhee","Soon Hee Han","Amakos da Amazônia","Clean beauty com bioativos amazônicos."],
+["stoney","Stoney Pinto","Idesam · Serviços Ambientais","Carbono e processos participativos."],
+["suze","Suze Oliveira","Cria Cesupa","Ecossistema de inovação e sustentabilidade."],
+["tabatha","Tabatha Benitz","Incubadora Mamirauá","Inovação social e negócios sustentáveis."],
+["taciana","Taciana Carvalho","UFAM · PaCTAS","Ciência e bioeconomia no Alto Solimões."],
+["tainah","Tainah Fagundes","DaTribu / ASSOBIO","Joias de borracha nativa. Rota da Bioeconomia."],
+["tainara","Tainara Kambeba","Comunidade Três Unidos","Turismo de base comunitária."],
+["tarcisio","Tarcisio Bunzli","AMASE / Grupo Nova Era","Varejo e supermercados no Norte."],
+["tomas","Tomás Correa","Felicidade Collective","Comunicação para a nova economia."],
+["valcleia","Valcléia Lima","FAS · Superintendente Adjunta","Bolsa Floresta. Mulheres e comunidades tradicionais."],
+["valda","Valda Barreto","Povo Baré","Cacique, artesã e educadora."],
+["ortega","Valmir Ortega","Belterra / Impacto PLUS","Conservação e restauração agroflorestal. Cofundador da Conexsus."],
+["vsoki","Vanessa Soki","Estímulo","Crédito orientado para pequenos negócios."],
+["vbastos","Victoria Bastos","WRI Brasil","Restauração florestal. Fundo Flora."],
+["virgilio","Virgilio Viana","FAS · Superintendente","Ex-secretário de Meio Ambiente do AM. UN-SDSN Amazônia."],
+["vitarque","Vitarque Coelho","MIDR","Desenvolvimento regional e estratégia BioRegio."],
+["vitoria","Vitória Marçal de Oliveira","Instituto Consulado da Mulher","Projetos de autonomia econômica de mulheres."],
+["bartkus","Viva Bartkus","Last Mile Fund","Desenvolvimento econômico inclusivo."],
+["vchun","Vivian Chun","MOMA Cosméticos","Cosméticos agroflorestais."],
+["wanderlei","Wanderlei Cruz","Usina de Óleos da RDS Uatumã","Óleo de breu-branco."],
+["washington","Washington Silva","Impact Hub Manaus / EcoAm","Projetos de bioeconomia na Amazônia."],
+["whendel","Whendel Mesquita","EteRNA Biotech","Terapia genética."],
+["whilla","Whilla Castelhano","Amazônia em Casa, Floresta em Pé","Filantropia comunitária e sociobioeconomia."],
+["wildney","Wildney Mourão","FAS · Empreendedorismo","Negócios sustentáveis da floresta."],
+["xadreque","Xadreque Macuácua","Instituto Acariquara","Avaliação de impacto e dados territoriais."],
+["yasmin","Yasmin Feitosa","Cepeco","Moda urbana decolonial."],
+["yonar","Yonar Marinho","Sereia Mística","Cultura e literatura."],
+["zek","Zek Picoteiro","Instituto Regatão Amazônia","DJ e pesquisador musical."]
+];
+OUT.forEach(([id,n,o,f])=>P.push({id,n,o,c:"out",p:9,f,t:"",w:[]}));
+const SESS=[
+["d1","10:15","Plenária Banzeiro",["manoel","macaulay","natalie","pisurui","valcleia","marlena"]],
+["d1","11:30","Sala Terra Firme",["diegov","fstefani","jonatas","cvilanova","silvia"],"mfornea"],
+["d1","11:30","Sala Igarapé",["anaclaudia","antonio","bruna","raimundo","sebastiao"],"brasi"],
+["d1","11:30","Sala Igapó",["denis","jsimoes","kedson"],"ellen"],
+["d1","11:30","Sala Rebojo",["anne","ilana","mbarrella","raquel"],"bianca"],
+["d1","11:30","Centro Comunitário",["elijane","rramos","valda"],"jessilda"],
+["d1","11:30","Palco Olho d’Água",["jmartins","jcarepa","tainah","zek"],"bia"],
+["d1","14:15","Sala Terra Firme",["amiraldo","ourivio","marisa","michelle"],"jmattos"],
+["d1","14:15","Sala Igarapé",["gibeli","iranilce","mlourenco"],"geovanna"],
+["d1","14:15","Sala Rebojo",["bebeto","pcayone","suze","vchun"],"folgado"],
+["d1","14:15","Centro Comunitário",["aramos","bruna","lsouza","vitarque","washington"],"contrucci"],
+["d1","14:15","Palco Olho d’Água",["bemerguy","gweber","heitor","lferreira"],"ellen"],
+["d1","16:30","Plenária Banzeiro",["heliandro","rcosta"]],
+["d1","16:30","Sala Terra Firme",["alessandra","mhgomes","nakahara","ecury","solange"],"pmoreira"],
+["d1","16:30","Sala Igarapé",["anacarol","natan","pvanessa","rosimar"],"guilherme"],
+["d1","16:30","Sala Igapó",["abfig","andrea","cgraca","roncada","lamorim","sobreira"],"pcarramaschi"],
+["d1","16:30","Sala Rebojo",["aline","emerson","gsouza","marcia"],"elis"],
+["d1","16:30","Centro Comunitário",["schaedler","rramos","soonhee","tomas"],"pugas"],
+["d1","16:30","Palco Olho d’Água",["gweber","janes","salazar","tedeschi"],"avianna"],
+["d1","17:45","Plenária Banzeiro",["pugas","mayra","noanny","virgilio"],"paulor"],
+["d2","09:30","Plenária Banzeiro · Conversas que movem",["bia","braulina","bruna","camile","bemerguy","denis","ourivio","ellen","joana","jmartins","jsimoes","motta","luciana","marcia","melissa","michelle","odenilze","rosenberg","ortega","werner"]],
+["d2","09:30","Sala Terra Firme",["dacota","jvalois","yasmin","yonar"],"drika"],
+["d2","09:30","Sala Igarapé",["cleidiana","fabio","favaro","nataly","tabatha","taciana"],"washington"],
+["d2","09:30","Sala Igapó",["chcarvalho","keila","wanderlei"],"simonetti"],
+["d2","09:30","Sala Rebojo",["lguimaraes","pamella","edleno","regina","whendel"],"daniella"],
+["d2","09:30","Centro Comunitário",["adriana","claudiabare","nayara","rojefferson","rosange","vitoria","xadreque"]],
+["d2","11:00","Sala Terra Firme",["diegov","hamilton","carcani","max","muyara"]],
+["d2","11:00","Sala Igarapé",["erocha","fabiane","paulor"],"georgia"],
+["d2","11:00","Sala Igapó",["betancur","estefania","jackeline","janeth","reyariel"],"rachel"],
+["d2","11:00","Sala Rebojo",["jraraujo","luzia","vitarque"],"emanuelle"],
+["d2","14:00","Sala Terra Firme",["adriano","jrlima","marcia","sandra"],"muanis"],
+["d2","14:00","Sala Igarapé",["clara","claudio","nakahara","larissa","vsoki","thais"],"cwerner"],
+["d2","14:00","Sala Igapó",["taveira","natalie","pisurui"],"stoney"],
+["d2","14:00","Sala Rebojo",["ufer","bcantal","izi","joana"],"ticoulat"],
+["d2","14:00","Centro Comunitário",["edson","jackeline","rosemeire"],"rachel"],
+["d2","15:15","Palco Olho d’Água · lançamento do livro Origens Brasil",["brasi"]],
+["d2","16:00","Plenária Banzeiro",["atila","falmeida","carcani","rebecca","rando"],"koury"],
+["d2","16:00","Sala Terra Firme",[],"simonetti"],
+["d2","16:00","Sala Terra Firme",[],"rrebelo"],
+["d2","16:00","Sala Igarapé",["berna","jmartins","raylton","tarcisio","whilla"],"okamura"],
+["d2","16:00","Sala Igapó",["avianna","carolle","lcunha","martha","rcastro","ortega"],"dbrandao"],
+["d2","16:00","Sala Rebojo",["brosler","jvilhena","ludmilla","ortega"],"folgado"],
+["d2","16:00","Centro Comunitário",["mangolini","nilde","gayotto","tainara"],"wildney"],
+["d2","17:15","Plenária Banzeiro",["bia","caetano","elisangela","tijolo"],"eva"]
+];
+P.forEach(x=>x.w=[]);
+const PM0={};P.forEach(x=>PM0[x.id]=x);
+const SESS_MISSING=[];
+SESS.forEach(([d,s,sala,ids,mod])=>{const lb=(d==="d1"?"Qua ":"Qui ")+s.replace(/^0/,"").replace(":00","h").replace(":","h")+" · "+sala;
+  ids.forEach(id=>{if(PM0[id])PM0[id].w.push(lb);else SESS_MISSING.push(id)});
+  if(mod){if(PM0[mod])PM0[mod].w.push(lb+" (moderação)");else SESS_MISSING.push(mod)}});
+const PM=PM0;
 
 const DAYS={
 d1:{label:"Qua 4/11",date:"2026-11-04",slots:[
@@ -264,17 +495,17 @@ function personHTML(x){const s=store[x.id]||{};
    <div class="ph"><div class="avatar" aria-hidden="true">${esc(initials(x.n))}</div>
      <div style="min-width:0"><h3>${x.p===1?"★ ":""}${esc(x.n)}</h3><p class="org">${esc(x.o)}</p></div></div>
    <div><span class="chip c-${x.c}">${CAT[x.c]}</span> ${s.met?`<span class="metbadge">✓ Já conversei</span>`:""}</div>
-   <div class="field"><b>Onde encontrar</b><ul class="where">${x.w.map(w=>`<li>${esc(w)}</li>`).join("")}</ul></div>
+   <div class="field"><b>Onde encontrar</b>${x.w.length?`<ul class="where">${x.w.map(w=>`<li>${esc(w)}</li>`).join("")}</ul>`:`<div>Não aparece nos painéis da programação. Pode estar circulando pelo evento.</div>`}</div>
    <p class="field"><b>Foco</b>${esc(x.f)}</p>
-   <p class="pitch"><b style="display:block;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase">Seu gancho</b>${esc(x.t)}</p>
+   ${x.t?`<p class="pitch"><b style="display:block;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase">Seu gancho</b>${esc(x.t)}</p>`:""}
    <label class="met"><input type="checkbox" id="met-${x.id}" data-met="${x.id}" ${s.met?"checked":""}> Já conversei</label>
    <label for="note-${x.id}" class="field"><b>Como reconhecer · o que combinamos</b></label>
    <textarea id="note-${x.id}" data-note="${x.id}" placeholder="Ex.: óculos vermelhos, cabelo curto. Mandar e-mail sexta.">${esc(s.note||"")}</textarea>
   </article>`}
 function renderPessoas(){
-  const fl=[["todos","Todos"],["p1","★ Prioridade"],["cap","Capital"],["par","Parceria"],["gov","Governo"],["esc","Escuta"],["met","Já conversei"]];
+  const fl=[["todos","Todos"],["p1","★ Prioridade"],["cap","Capital"],["par","Parceria"],["gov","Governo"],["esc","Escuta"],["out","Demais palestrantes"],["met","Já conversei"]];
   $("#v-pessoas").innerHTML=`${backTo?`<button type="button" class="back" data-back="1">← Voltar para ${backTo==="agenda"?"a Agenda":"Agora"}</button>`:""}
-   <label for="busca" class="eyebrow">Buscar por nome, organização ou anotação</label>
+   <label for="busca" class="eyebrow">Buscar por nome, organização, tema ou anotação</label>
    <input id="busca" class="search" type="search" placeholder="Ex.: BID, Fundo Vale, óculos…" value="${esc(q)}">
    <div class="filters">${fl.map(([k,l])=>`<button type="button" class="fbtn" data-f="${k}" aria-pressed="${k===filt}">${l}</button>`).join("")}</div>
    <div id="plist" class="view"></div>`;
@@ -282,10 +513,11 @@ function renderPessoas(){
 function listPessoas(){
   const qq=q.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
   const r=P.filter(x=>{const s=store[x.id]||{};
-    if(filt==="p1"&&x.p!==1)return false; if(["cap","par","gov","esc"].includes(filt)&&x.c!==filt)return false; if(filt==="met"&&!s.met)return false;
+    if(filt==="p1"&&x.p!==1)return false; if(["cap","par","gov","esc","out"].includes(filt)&&x.c!==filt)return false; if(filt==="met"&&!s.met)return false;
     if(!qq)return true;
-    return (x.n+" "+x.o+" "+(s.note||"")).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(qq)}).sort((a,b)=>a.p-b.p);
-  $("#plist").innerHTML=r.length?r.map(personHTML).join(""):`<p class="empty">Ninguém encontrado. Tente outro nome ou limpe o filtro.</p>`}
+    return (x.n+" "+x.o+" "+x.f+" "+(s.note||"")).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").includes(qq)}).sort((a,b)=>(a.c==="out")-(b.c==="out")||(a.c==="out"?a.n.localeCompare(b.n,"pt"):a.p-b.p));
+  let firstOut=r.findIndex(x=>x.c==="out");
+  $("#plist").innerHTML=r.length?r.map((x,i)=>(i===firstOut&&i>0?`<h2 class="divider">Demais palestrantes (A–Z)</h2>`:"")+personHTML(x)).join(""):`<p class="empty">Ninguém encontrado. Tente outro nome ou limpe o filtro.</p>`}
 
 function renderPitch(){
   $("#v-pitch").innerHTML=`

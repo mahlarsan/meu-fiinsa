@@ -238,15 +238,18 @@ function renderAgora(){
   const d=new Date();const iso=`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;const m=d.getHours()*60+d.getMinutes();
   let out=`<p class="eyebrow">Agora são ${pad(d.getHours())}h${pad(d.getMinutes())}</p>`;
   let day=iso===DAYS.d1.date?"d1":iso===DAYS.d2.date?"d2":null;
+  const first3=(k,lbl)=>DAYS[k].slots.slice(0,3).map((s,i)=>slotHTML(s,i===0?lbl:"")).join("");
   if(!day){
-    if(iso<DAYS.d1.date){out+=`<h2>O festival começa na quarta, 4/11</h2>`+slotHTML(DAYS.d1.slots[3],"Primeiro painel")}
+    if(iso<DAYS.d1.date){out+=`<h2>O festival começa na quarta, 4/11</h2>`+first3("d1","Começo")}
     else{out+=`<h2>O FIINSA terminou</h2><p>Revise suas anotações na aba Pessoas e mande os e-mails de follow-up.</p>`}
     $("#v-agora").innerHTML=out;return}
-  const sl=DAYS[day].slots;const cur=sl.find(x=>m>=mins(x.s)&&m<mins(x.e));const nx=sl.find(x=>mins(x.s)>m);
+  const sl=DAYS[day].slots;const cur=sl.find(x=>m>=mins(x.s)&&m<mins(x.e));
   out+=`<h2>${DAYS[day].label}</h2>`;
+  if(m<mins(sl[0].s)){out+=first3(day,"Começo");$("#v-agora").innerHTML=out;return}
+  const after=sl.filter(x=>mins(x.s)>m).slice(0,cur?2:3);
   if(cur)out+=slotHTML(cur,"AGORA");
-  if(nx)out+=slotHTML(nx,"DEPOIS");
-  if(!cur&&!nx){out+=`<p class="big">Fim do dia.</p>`;if(day==="d1")out+=slotHTML(DAYS.d2.slots[1],"Amanhã cedo")}
+  after.forEach((x,i)=>out+=slotHTML(x,i===0?"DEPOIS":""));
+  if(!cur&&!after.length){out+=`<p class="big">Fim do dia.</p>`;if(day==="d1")out+=`<h2>${DAYS.d2.label}</h2>`+first3("d2","Amanhã")}
   $("#v-agora").innerHTML=out}
 
 let agDay=(new Date().getDate()===5&&new Date().getMonth()===10)?"d2":"d1";

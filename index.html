@@ -113,7 +113,7 @@ nav.tabs a[aria-current="page"]{background:var(--nav-fg);color:var(--nav)}
 
 <main>
   <div class="top">
-    <h1>Meu FIINSA<small>4 e 5 de novembro · Manaus Plaza</small></h1>
+    <h1>Meu FIINSA<small>4 e 5 de novembro · Manaus Plaza · versão 4</small></h1>
     <button class="size" id="sizeBtn" type="button" aria-label="Aumentar letra">A+</button>
   </div>
   <div class="legend" aria-label="Legenda de cores">
@@ -314,6 +314,7 @@ function goPerson(id){if(curTab!=="pessoas"){backTo=curTab;backY=window.scrollY}
   const el=document.getElementById("p-"+id);if(el){el.scrollIntoView({block:"start"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800)}}
 
 document.addEventListener("click",e=>{
+  const tb=e.target.closest("[data-tab]");if(tb){e.preventDefault();const t=tb.dataset.tab;try{history.replaceState(null,"","#"+t)}catch(_){}show(t);return}
   const g=e.target.closest("[data-go]");if(g){goPerson(g.dataset.go);return}
   if(e.target.closest("[data-back]")&&backTo){const t=backTo,y=backY;backTo=null;history.replaceState(null,"","#"+t);show(t);window.scrollTo(0,y);return}
   const d=e.target.closest("[data-day]");if(d){agDay=d.dataset.day;renderAgenda();return}
@@ -333,6 +334,6 @@ show(location.hash.slice(1)||"agora");
 setInterval(()=>{if(!$("#v-agora").hidden)renderAgora()},60000);
 </script>
 
-<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}))}</script>
+<script>if("serviceWorker" in navigator){let hadCtrl=!!navigator.serviceWorker.controller,done=false;navigator.serviceWorker.addEventListener("controllerchange",()=>{if(hadCtrl&&!done){done=true;location.reload()}});window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{}))}</script>
 </body>
 </html>

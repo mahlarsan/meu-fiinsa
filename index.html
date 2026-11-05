@@ -67,6 +67,10 @@ button,input,textarea{font:inherit;color:inherit}
 .c-hot{color:var(--hot);background:var(--hot-soft)}
 .c-out{color:var(--out);background:var(--out-soft)}
 .k-out{--k:var(--out);--ks:var(--out-soft)}
+.export{display:flex;flex-direction:column;gap:.5rem;border:3px solid var(--cap);background:var(--cap-soft);border-radius:1rem;padding:.8rem}
+.export button{border:2px solid var(--fg);background:var(--card);border-radius:.7rem;padding:.6rem .9rem;font-weight:700;cursor:pointer;font-size:1.05rem}
+.export textarea{min-height:10rem;font-size:.9rem}
+.export p{margin:0}
 .divider{margin-top:.5rem;padding-top:.75rem;border-top:3px solid var(--fg);font-size:1.15rem}
 .view{display:flex;flex-direction:column;gap:1rem}
 .eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
@@ -117,7 +121,7 @@ nav.tabs a[aria-current="page"]{background:var(--nav-fg);color:var(--nav)}
 
 <main>
   <div class="top">
-    <h1>Meu FIINSA<small>4 e 5 de novembro · Manaus Plaza · versão 5</small></h1>
+    <h1>Meu FIINSA<small>4 e 5 de novembro · Manaus Plaza · versão 6</small></h1>
     <button class="size" id="sizeBtn" type="button" aria-label="Aumentar letra">A+</button>
   </div>
   <div class="legend" aria-label="Legenda de cores">
@@ -505,6 +509,7 @@ function personHTML(x){const s=store[x.id]||{};
 function renderPessoas(){
   const fl=[["todos","Todos"],["p1","★ Prioridade"],["cap","Capital"],["par","Parceria"],["gov","Governo"],["esc","Escuta"],["out","Demais palestrantes"],["met","Já conversei"]];
   $("#v-pessoas").innerHTML=`${backTo?`<button type="button" class="back" data-back="1">← Voltar para ${backTo==="agenda"?"a Agenda":"Agora"}</button>`:""}
+   <div class="export"><button type="button" data-export="1">📋 Copiar minhas anotações</button><p id="exportMsg" aria-live="polite"></p><textarea id="exportBox" hidden readonly aria-label="Anotações para copiar"></textarea></div>
    <label for="busca" class="eyebrow">Buscar por nome, organização, tema ou anotação</label>
    <input id="busca" class="search" type="search" placeholder="Ex.: BID, Fundo Vale, óculos…" value="${esc(q)}">
    <div class="filters">${fl.map(([k,l])=>`<button type="button" class="fbtn" data-f="${k}" aria-pressed="${k===filt}">${l}</button>`).join("")}</div>
@@ -534,6 +539,15 @@ function renderPitch(){
   <article class="card person k-esc"><span class="chip c-esc" style="align-self:flex-start">Escuta</span><p class="big">Pergunte e ouça.</p></article>
   <article class="card"><p class="eyebrow">Depois de cada conversa</p><p class="big">Marque “Já conversei” e anote como a pessoa é e o próximo passo. Assim você reconhece o rosto e lembra o nome.</p></article>`}
 
+function exportNotes(){
+  const rows=P.filter(x=>{const s=store[x.id];return s&&(s.met||(s.note&&s.note.trim()))});
+  const msg=$("#exportMsg"),box=$("#exportBox");
+  if(!rows.length){msg.textContent="Você ainda não marcou ninguém nem escreveu anotações.";box.hidden=true;return}
+  const txt="Minhas anotações do FIINSA 2026 ("+rows.length+" pessoas)\n\n"+rows.map(x=>{const s=store[x.id];
+    return "• "+x.n+" — "+x.o+"\n  "+(s.met?"Já conversei":"Ainda não conversei")+(s.note&&s.note.trim()?"\n  Anotação: "+s.note.trim().replace(/\n+/g," / "):"")}).join("\n\n");
+  box.value=txt;box.hidden=false;
+  const fallback=()=>{box.focus();box.select();msg.textContent="Texto selecionado abaixo. Toque nele, escolha Copiar e cole na conversa com o Claude."};
+  try{navigator.clipboard.writeText(txt).then(()=>{msg.textContent="Copiado! Agora é só colar na conversa com o Claude. O texto também está abaixo."},fallback)}catch(_){fallback()}}
 const tabs=["agora","agenda","pessoas","pitch"];
 let curTab="agora",backTo=null,backY=0;
 function show(t){if(!tabs.includes(t))t="agora";
@@ -547,6 +561,7 @@ function goPerson(id){if(curTab!=="pessoas"){backTo=curTab;backY=window.scrollY}
 
 document.addEventListener("click",e=>{
   const tb=e.target.closest("[data-tab]");if(tb){e.preventDefault();const t=tb.dataset.tab;try{history.replaceState(null,"","#"+t)}catch(_){}show(t);return}
+  if(e.target.closest("[data-export]")){exportNotes();return}
   const g=e.target.closest("[data-go]");if(g){goPerson(g.dataset.go);return}
   if(e.target.closest("[data-back]")&&backTo){const t=backTo,y=backY;backTo=null;history.replaceState(null,"","#"+t);show(t);window.scrollTo(0,y);return}
   const d=e.target.closest("[data-day]");if(d){agDay=d.dataset.day;renderAgenda();return}
